@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Finuevo</title>
+    <meta name="description" content="Finuevo" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+	<!--
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+	-->
+	<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100&display=swap" 
+        rel="stylesheet">
+    <style>
+		body{ 
+			font-family: 'Roboto', sans-serif; 
+			overflow-x: hidden;
+		}
+		input[type=number]::-webkit-inner-spin-button, 
+		input[type=number]::-webkit-outer-spin-button { 
+			-webkit-appearance: none; 
+			margin: 0; 
+		}
+		.gradient {
+			/*background: linear-gradient(90deg, #d53369 0%, #daae51 100%);*/
+			/*background: linear-gradient(90deg, #3D429A 0%, #9D235E 100%);*/
+			/*background:radial-gradient(39.79% 102.8% at 78.02% 47.44%, rgba(192, 184, 236, 0.99) 0%, #2D216B 100%);*/
+			/*background: linear-gradient(0deg, #FF4F84, #FF4F84), #FF36A3;*/
+			background: radial-gradient(39.79% 102.8% at 78.02% 47.44%, #4D3E91 0%, #392886 100%);
+		}
+		.bg-gray {
+			background: #EDEFFB !important;
+		}
+		.text-primary {
+			color: #4D3E91;
+		}
+		.bg-primary {
+			background: #4D3E91 !important;
+		}
+		.bg-primary-opacity {
+			background-color: rgb(107, 92, 175);
+		}
+		.bg-rounded {
+			border-radius: 110px;
+		}
+		.border-primary {
+			border-color: #4D3E91;
+		}
+		.placeholder-primary::placeholder {
+			color: #4D3E91;
+		}
+		.border-6 {
+			border-width: 6px;
+		}
+		.border-section {
+			border-radius: 150px;
+		}
+		footer {
+			background: #4D3E91;
+		}
+
+        div#comparison {
+            width: 100%;
+            height: 780px;
+            overflow: hidden;
+            max-width: 382px;
+        }
+
+        div#comparison .figure {
+            background-image: url(assets/mobile_from.png);
+            /*background-size: contain;*/
+            background-repeat: no-repeat;
+            /*position: relative;*/
+            font-size: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        div#comparison .figure>img {
+            position: relative;
+            width: 100%;
+        }
+
+        div#comparison .figure div {
+            background-image: url(assets/mobile_to_gray.png);
+            /*background-size: cover;*/
+            background-repeat: no-repeat;
+            /*position: absolute;*/
+            width: 50%;
+            /*box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.3);*/
+            overflow: hidden;
+            /*bottom: 0;*/
+            height: 100%;
+        }
+        .menuOpened {
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            background-color: #fff;
+            margin-top: 20px;
+            text-align: center;
+            padding: 3rem;
+        }
+        .menuOpened #navAction {
+            border: 3px solid #FF36A3;
+            background-color: #fff;
+            color: #FF36A3;
+        }
+        .menuOpened .menuList {
+            position: absolute;
+            top:0;
+            left:0;
+            height: 100%;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .menuOpened .menuItem {
+            color: #FF36A3 !important;
+        }
+        .menuOpened .menuItemLi {
+            align-self: auto;
+            line-height: 50px;
+            text-align: center;
+            font-weight: bolder;
+            line-height: 58px;
+            font-size: 32px;
+        }
+        .closeMenu {
+            position: absolute;
+            top: 10px;
+            right: 17px;
+            font-size: 30px;
+            font-weight: 800;
+        }
+    </style>
+  </head>
+  <body class="theme-startup leading-normal tracking-normal text-white">
+	
+    <!--Nav-->
+    <nav id="header" class="fixed w-full z-30 top-0 text-white">
+      <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-4">
+        <div class="pl-4 flex items-center">
+          <a class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+			<img id="logoImg" src="assets/logo.svg" alt="finuevo" />
+          </a>
+        </div>
+        <div class="block lg:hidden pr-4">
+          <button id="nav-toggle" class="flex items-center p-1 text-pink-500 hover:text-gray-900 
+            focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+            
+			<svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <title>Menu</title>
+              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+			
+          </button>
+        </div>
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 
+            bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20" id="nav-content">
+          <ul id="menuList" class="list-reset lg:flex justify-end flex-1 items-center">
+            <li class="mr-3 menuItemLi">
+              <a class="menuItem inline-block py-2 px-4 text-white font-bold hover:text-pink-500 hover:text-underline 
+                hover:text-gray-100 no-underline" href="#why-finuevo" onclick="closeMenu()">Why Finuevo</a>
+            </li>
+            <li class="mr-3 menuItemLi">
+              <a class="menuItem inline-block text-white no-underline font-bold 
+                hover:text-pink-500 hover:text-underline py-2 px-4" href="#your-platform" onclick="closeMenu()">Features</a>
+            </li>
+            <li class="mr-3 menuItemLi">
+              <a class="menuItem inline-block text-white no-underline font-bold 
+                hover:text-pink-500 hover:text-underline py-2 px-4" href="#overview" onclick="closeMenu()">Overview</a>
+            </li>
+			<li class="mr-3 menuItemLi">
+              <a class="menuItem inline-block text-white no-underline font-bold 
+                hover:text-pink-500 hover:text-underline py-2 px-4" href="#who-we-are" onclick="closeMenu()">Who we are</a>
+            </li>
+          </ul>
+          <button
+            id="navAction"
+            class="mx-auto lg:mx-0 hover:underline bg-pink-500 text-white rounded-full mt-4 lg:mt-0 py-4 px-10 
+                shadow opacity-100 focus:outline-none focus:shadow-outline transform transition 
+                hover:scale-105 duration-300 ease-in-out">
+            BOOK A DEMO
+          </button>
+        </div>
+      </div>
+      <!--<hr class="border-b border-gray-100 opacity-25 my-0 py-0" />-->
+    </nav>
+	
+    <!--Main Bg Section-->
+    <div class="pt-10 lg:pt-40 pb-16 gradient" style="height: 100vh; border-bottom-right-radius: 320px;">
+      <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+	  
+        <!--Left Col-->
+        <div class="flex flex-col w-full md:w-4/12 sm:w-full pt-12 justify-center items-start text-center md:text-left">
+          <h1 class="my-4 text-3xl lg:text-5xl font-bold leading-tight">
+            Looking for a digital banking solution? Look no further
+          </h1>
+          <p class="leading-relaxed font-thin text lg:text-xl  mb-8">
+            Finuevo is the mobile-first, cloud-native, Digital Banking platform that empowers 
+            financial institutions of any size to achieve digital transformation end-to-end.
+          </p>
+		  
+          <div class="w-full text-center">
+            <img class="visible lg:hidden" src="assets/mobile_header.svg" alt="" />
+          </div>
+
+		  <div class="flex flex-col w-full justify-center items-end">
+			  <button class="mx-auto lg:mx-0 hover:underline bg-pink-500 text-white font-bold 
+                rounded-full my-3 py-4 px-24  focus:outline-none focus:shadow-outline transform 
+                transition hover:scale-105 duration-300 ease-in-out">BOOK A DEMO
+			  </button>
+			  <button class="mx-auto lg:mx-0 border-2 border-pink-500 hover:underline bg-transparent 
+                text-pink-600 font-bold rounded-full my-3 py-4 px-16  focus:outline-none focus:shadow-outline 
+                transform transition hover:scale-105 duration-300 ease-in-out">DOWNLOAD BROCHURE
+			  </button>
+		  </div>
+		  
+        </div>
+		
+        <!--Right Col-->
+        <div class="flex flex-col w-full md:w-8/12 text-center">
+			<!--<img class="z-50" src="assets/images.svg" />-->
+        </div>
+		
+		<img class="invisible lg:visible" src="assets/images.svg" alt="" style="position: absolute; top: 98px;" />
+		
+      </div>
+    </div>
+	
+	<div class="max-w-9xl">
+	
+		<section class="mx-4 pt-28" id="with-finuevo">
+		  <div class="container mx-auto flex flex-wrap flex-col md:flex-row pt-4 pb-12 justify-enter items-center">
+			<div class="flex-1 text-left px-16 order-2 md:order-1">
+				<img src="assets/with_finuevo.svg" alt="with_finuevo" />
+			</div>
+			<div class="flex-1 text-left px-16 align-middle items-center order-1 md:order-2">
+				<h1 class="w-full my-2 text-5xl text-primary font-extrabold leading-tight text-left">
+				  With Finuevo you <br/> focus on what is<br/> important
+				</h1>
+				<p class="py-6 text-primary leading-relaxed font-light text-xl">
+				Make Finuevo yours by styling it to match your brand’s colours, values and needs. 
+                The UI layer of our platform is not only brandable but also fully modular. 
+                The components that comprise each screen (buttons, texts, labels etc) can be individually customized 
+                to meet your desired guidelines.
+				</p>
+			</div>
+		  </div>
+		</section>
+		
+		<section class="mx-4 pt-28" id="why-finuevo">
+			<div class="w-full bg-gray container mx-auto px-2 py-40 text-gray-800 border-section">
+			  <div class="container mx-auto px-2 pt-4 pb-12 max-w-xl text-primary">
+				<h1 class="w-full my-4 text-5xl font-extrabold leading-tight text-center">
+				  Why Finuevo
+				</h1>
+				<h2 class="w-full my-5 text-3xl font-bold leading-tight text-center">
+				  Fast and easy implementation
+				</h2>
+				<p class="text-center leading-relaxed font-light">
+				Finuevo can easily be deployed in the cloud, on-premise, or as SaaS delivering the functionality 
+                and flexibility to meet the evolving market requirements in short time and at affordable costs, 
+                offering real value and quick ROI
+				</p>
+			  </div>
+			</div>
+		</section>
+		
+		<section class="mx-4 pt-28" id="your-platform">
+		  <div class="container mx-auto flex flex-wrap flex-col md:flex-row pt-4 pb-12 justify-enter items-center">
+			<div class="flex-1 text-left px-16 order-2 md:order-1">
+				<h1 class="w-full my-2 text-5xl text-primary font-extrabold leading-tight text-left">
+				  Your platform, your <br/>design
+				</h1>
+				<p class="py-6 text-primary leading-relaxed font-light text-xl">
+				Make Finuevo yours by styling it to match your brand’s colours, values and needs. 
+                The UI layer of our platform is not only brandable but also fully modular. 
+                The components that comprise each screen (buttons, texts, labels etc) can be individually customized 
+                to meet your desired guidelines.
+				</p>
+			</div>
+			<div class="flex-1 text-left px-16 order-1 md:order-2">
+				<!--<img src="assets/your_platform.svg" alt="your platform" />-->
+				<div id="comparison" onmousemove="moveDivisor(event)">
+					<div class="figure">
+						<div id="divisor" class="border-r-2 border-pink-500"></div>
+					</div>
+				</div>
+			</div>
+		  </div>
+		</section>
+		
+		<section class="mx-4 pt-28" id="overview">
+			<div class="w-full bg-gray container mx-auto px-2 py-12 text-white border-section">
+			  <div class="container mx-auto px-2 pt-4 pb-12 max-w-xl text-primary">
+				<h1 class="w-full my-4 text-5xl font-extrabold leading-tight text-center">
+				  Overview
+				</h1>
+			  </div>
+              <div class="container mx-auto flex flex-wrap flex-col md:flex-row pt-4 pb-12 justify-enter items-center">
+                <div class="flex-1 text-left px-16 order-1 md:order-2">
+                    <div class="bg-pink-500 h-2 w-1/5 bg-rounded mb-8"></div>
+                    <h1 class="w-full my-2 text-4xl text-primary font-extrabold leading-tight text-left">
+                        A dashboard for finances <br/>overview
+                    </h1>
+                    <p class="py-6 text-primary leading-relaxed font-light text-xl">
+                        With Finuevo’s charts of expenses and income your customer understands 
+                        their current financial state at a glance. 
+                        At the same time there is a lot of space for you to promote products and loyalty partners.
+                    </p>
+                </div>
+                <div class="flex-1 text-left px-16 order-2 md:order-1 flex justify-center">
+                    <img src="assets/overview_dashboard.svg" alt="overview-dashboard" />
+                </div>
+              </div>
+              <div class="container mx-auto flex flex-wrap flex-col md:flex-row pt-4 pb-12 justify-enter items-center">
+                <div class="flex-1 text-left px-16 order-2 md:order-1">
+                    <div class="bg-pink-500 h-2 w-1/5 bg-rounded mb-8"></div>
+                    <h1 class="w-full my-2 text-4xl text-primary font-extrabold leading-tight text-left">
+                        Secure & flexible <br/>onboarding
+                    </h1>
+                    <p class="py-6 text-primary leading-relaxed font-light text-xl">
+                        Onboarding can be a tedious overwhelming process. 
+                        Our solution of gradual data request such as e-mail, moobile, device registration ensures 
+                        that your customers have a smooth, effortless experience. 
+                        At the same time we help you accelerate digital journeys through integration 
+                        with available facilities such as e-KYC, e-Gov and more. 
+                    </p>
+                </div>
+                <div class="flex-1 text-left px-16 order-2 md:order-1 flex justify-center">
+                    <img src="assets/overview_onboarding.svg" alt="overview-onboarding" />
+                </div>
+              </div>
+              <div class="container mx-auto flex flex-wrap flex-col md:flex-row pt-4 pb-12 justify-enter items-center">
+                <div class="flex-1 text-left px-16 order-1 md:order-2">
+                    <div class="bg-pink-500 h-2 w-1/5 bg-rounded mb-8"></div>
+                    <h1 class="w-full my-2 text-4xl text-primary font-extrabold leading-tight text-left">
+                        User-friendly Transaction <br/>flows
+                    </h1>
+                    <p class="py-6 text-primary leading-relaxed font-light text-xl">
+                        Your customers will feel at ease with our stepped, intuitive transaction flows. 
+                        We will help them along the way of completing their transaction 
+                        with our built in predefined amounts, a calculator for simple maths, 
+                        support for barcode/QR code for billers and much more 
+                        that will ensure an amazing user experience.
+                    </p>
+                </div>
+                <div class="flex-1 text-left px-16 order-2 md:order-1 flex justify-center">
+                    <img src="assets/overview_filters.svg" alt="overview-filters" />
+                </div>
+              </div>
+			</div>
+		</section>
+		
+		<section class="mx-4 pt-28" id="who-we-are">
+			<div class="w-full bg-primary container mx-auto px-2 py-12 text-white bg-rounded">
+			  
+			  <div class="container mx-auto px-2 pt-4 pb-4 max-w-3xl text-primary">
+				<h1 class="w-full my-4 text-5xl text-white font-extrabold leading-tight text-center">
+				  Who we are
+				</h1>
+				<p class="text-center leading-relaxed font-light text-white opacity-75">
+				We are Profile Software, an award-winning solutions provider with presence 
+                in Europe, Middle East, Asia, Africa and America, delivering market-proven 
+                solutions to the Investment Management and Banking industries. 
+                We are recognised as an established and trusted partner, 
+                offering solutions that enable organisations internationally 
+                to align their business and IT strategies utilising award-winning tools 
+                to proactively respond to the ever-changing market conditions. 
+				</p>
+			  </div>
+			  
+			  <div class="flex flex-col xl:flex-row justify-center items-center pt-4 my-12 px-8 sm:my-4" >
+			  
+				  <div class="rounded-full flex flex-col justify-center items-center flex-1 mt-4 text-center">
+					<div class="rounded-full border-6 border-gray-100 p-1" style="border-color:#C162BF">
+						<div class="m-1 bg-primary-opacity font-extrabold text-4xl rounded-full 
+                            h-40 w-40 flex justify-center items-center opacity-75">30+</div>
+					</div>
+					<span class="mt-6 h-4 opacity-75">Years of experience</span>
+				  </div>
+				  
+				  <div class="rounded-full flex flex-col justify-center items-center flex-1 mt-4 text-center">
+					<div class="rounded-full border-6 border-gray-100 p-1" style="border-color:#F09578">
+						<div class="m-1 bg-primary-opacity font-extrabold text-4xl rounded-full 
+                            h-40 w-40 flex justify-center items-center opacity-75">10</div>
+					</div>
+					<span class="mt-6 h-4 opacity-75">Offices</span>
+				  </div>
+				  
+				  <div class="rounded-full flex flex-col justify-center items-center flex-1 mt-4 text-center">
+					<div class="rounded-full border-6 border-gray-100 p-1" style="border-color:#96ECCD">
+						<div class="m-1 bg-primary-opacity font-extrabold text-4xl rounded-full 
+                            h-40 w-40 flex justify-center items-center opacity-75">45</div>
+					</div>
+					<span class="mt-6 h-4 opacity-75">Countries of presence</span>
+				  </div>
+				  
+				  <div class="rounded-full flex flex-col justify-center items-center flex-1 mt-4 text-center">
+					<div class="rounded-full border-6 border-gray-100 p-1" style="border-color:#70C7F8">
+						<div class="m-1 bg-primary-opacity font-extrabold text-4xl rounded-full 
+                            h-40 w-40 flex justify-center items-center opacity-75">300+</div>
+					</div>
+					<span class="mt-6 h-4 opacity-75">Organizations</span>
+				  </div>
+				  
+				  <div class="rounded-full flex flex-col justify-center items-center flex-1 mt-4 text-center">
+					<div class="rounded-full border-6 border-gray-100 p-1" style="border-color:#FF7676">
+						<div class="m-1 bg-primary-opacity font-extrabold w-100 text-4xl rounded-full 
+                            h-40 w-40 flex justify-center items-center opacity-75">Growth</div>
+					</div>
+					<span class="mt-6 h-4 opacity-75">Through investments</br> in: R&D & Acquisitions</span>
+				  </div>
+				  
+				</div>
+			  
+			</div>
+		</section>
+		
+		<section class="mx-4 pt-28" id="lets-chat">
+		  <div class="container bg-gray mx-auto flex flex-wrap flex-col md:flex-row bg-rounded px-2 py-12 justify-enter items-center">
+			<div class="flex-1 text-left px-16">
+				<h1 class="text-5xl font-bold leading-tight text-left text-gray-800 text-primary">Let’s chat</h1>
+				<p class="py-6 text-primary leading-relaxed font-light text-xl">
+				Discover all Finuevo has to offer and how it can be tailored to meet your needs 
+                by booking an </br> appointment with one of our experts.
+				</p>
+			</div>
+			<div class="flex-1 text-left px-16">
+				<div class="flex justify-center items-center mx-auto">
+					<form action="#" class="w-full p-4">
+					  <div class="p-3">
+						<input class="block appearance-none placeholder-primary placeholder-opacity-100 
+                            border-primary bg-rounded border bg-transparent w-full py-3 px-4 text-primary 
+                            leading-5 focus:outline-none focus:ring-2 focus:ring-light-blue-300" 
+                            type="text" placeholder="Name" required>
+					  </div>
+					  <div class="p-3">
+						<input class="block appearance-none placeholder-primary placeholder-opacity-100 
+                            border-primary bg-rounded border bg-transparent w-full py-3 px-4 text-primary 
+                            leading-5 focus:outline-none focus:ring-2 focus:ring-light-blue-300" 
+                            type="email" placeholder="Email" required>
+					  </div>
+					  <div class="p-3">
+						<input class="block appearance-none placeholder-primary placeholder-opacity-100 
+                            border-primary bg-rounded border bg-transparent w-full py-3 px-4 text-primary 
+                            leading-5 focus:outline-none focus:ring-2 focus:ring-light-blue-300" 
+                            type="number" placeholder="Mobile Number" required>
+					  </div>
+					  <div class="p-3 pt-4">
+					  <button class="w-full bg-primary hover:bg-gray-900 text-white font-bold 
+                        py-3 px-4 bg-rounded text-xl">Send
+					  </button>
+						</form>
+					</div>
+				</div>
+		  </div>
+		</section>
+	
+	</div>
+	
+    <!--Footer-->
+    <footer class="mt-28">
+      <div class="container mx-auto px-8 py-8 pb-0 text-white">
+        <div class="w-full flex flex-col md:flex-row py-6">
+          <div class="flex-1 flex-col mb-0 text-black">
+            <a class="text-pink-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+              <img src="assets/logo.svg" alt="finuevo" />
+            </a>
+			<div class="py-8 text-white leading-relaxed font-thin text-xl">
+				Finuevo is the Mobile-First, Cloud-Native  Digital <br/> Banking Platform empowering 
+                financial institutions <br/> of any size to achieve digital transformation.
+			</div>
+          </div>          
+          <div class="flex-1">
+			<div class="w-full flex flex-col md:flex-row py-3">
+				<div class="flex-1 mb-4">
+					<p class="md:mb-6 font-medium text-2xl">Digital Banking</p>
+					<ul class="list-reset mb-6">
+					  <li class="mt-3">
+						<a href="#" class="no-underline hover:underline hover:text-pink-500">Who we are</a>
+					  </li>
+					  <li class="mt-3">
+						<a href="#" class="no-underline hover:underline hover:text-pink-500">Why Finuevo</a>
+					  </li>
+					  <li class="mt-3">
+						<a href="#" class="no-underline hover:underline hover:text-pink-500">Features</a>
+					  </li>
+					  <li class="mt-3">
+						<a href="#" class="no-underline hover:underline hover:text-pink-500">Book a demo</a>
+					  </li>
+					</ul>
+				</div>
+				<div class="flex-1">
+					<p class="md:mb-6 font-medium text-2xl">Useful Links</p>
+					<ul class="list-reset mb-6">
+					  <li class="mt-3">
+						<a href="#" class="no-underline hover:underline hover:text-pink-500">Privacy Policy</a>
+					  </li>
+					  <li class="mt-3">
+						<a href="#" class="no-underline hover:underline hover:text-pink-500">Data Protection</a>
+					  </li>
+					  <li class="mt-3">
+						<a href="#" class="no-underline hover:underline hover:text-pink-500">Contact</a>
+					  </li>
+					  <li class="mt-3">
+						<ul class="list-reset mb-6">
+						  <li class="inline-block mr-6"><img class="h-6 w-6" src="assets/linkedin.svg" alt="linkedin" /></li>
+						  <li class="inline-block mr-6"><img class="h-6 w-6" src="assets/facebook.svg" alt="linkedin" /></li>
+						  <li class="inline-block mr-6"><img class="h-6 w-6" src="assets/twitter.svg" alt="linkedin" /></li>
+						  <li class="inline-block mr-6"><img class="h-6 w-6" src="assets/instagram.svg" alt="linkedin" /></li>
+						</ul>
+					  </li>
+					</ul>
+				</div>
+			</div>
+		  </div>
+        </div>
+		<div class="w-full flex flex-row py-0 text-white text-sm font-thin">
+		  <span class="mr-3">Powered by:</span> <img src="assets/profile.svg" alt="profile" style="position: relative; top: -10px;" />
+	    </div>
+	  </div>
+	  
+	  <div id="copyright" class="w-full py-3 text-white text-sm leading-relaxed font-thin text-center">
+		  Copyright © 2022 Finuevo - Digital Banking Platform | Profile Software
+	  </div>
+    </footer>
+    <script>
+        var scrollpos = window.scrollY;
+        var header = document.getElementById("header");
+        var navcontent = document.getElementById("nav-content");
+        //var navaction = document.getElementById("navAction");
+        var brandname = document.getElementById("brandname");
+        var toToggle = document.querySelectorAll(".toggleColour");
+        var menuItems = document.querySelectorAll(".menuItem");
+        var logoImg = document.getElementById("logoImg");
+
+        document.addEventListener("scroll", function () {
+            /*Apply classes for slide in bar*/
+            scrollpos = window.scrollY;
+
+            if (scrollpos > 10) {
+                logoImg.src = 'assets/logo_reverse.svg';
+                //header.classList.remove("bg-primary");
+                header.classList.add("bg-white");
+                //navaction.classList.remove("bg-white");
+                //navaction.classList.add("gradient");
+                //navaction.classList.remove("text-gray-800");
+                //navaction.classList.add("text-white");
+                //Use to switch toggleColour colours
+                for (var i = 0; i < toToggle.length; i++) {
+                    toToggle[i].classList.add("text-gray-800");
+                    toToggle[i].classList.remove("text-white");
+                }
+                for (var i = 0; i < menuItems.length; i++) {
+                    menuItems[i].classList.add("text-gray-800");
+                    menuItems[i].classList.remove("text-white");
+                }
+                header.classList.add("shadow");
+                navcontent.classList.remove("bg-gray-100");
+                navcontent.classList.add("bg-white");
+            } else {
+                logoImg.src = 'assets/logo.svg';
+                header.classList.remove("bg-white");
+                //header.classList.add("bg-primary");
+                //navaction.classList.remove("gradient");
+                //navaction.classList.add("bg-white");
+                //navaction.classList.remove("text-white");
+                //navaction.classList.add("text-gray-800");
+                //Use to switch toggleColour colours
+                for (var i = 0; i < toToggle.length; i++) {
+                    toToggle[i].classList.add("text-white");
+                    toToggle[i].classList.remove("text-gray-800");
+                }
+                for (var i = 0; i < menuItems.length; i++) {
+                    menuItems[i].classList.add("text-white");
+                    menuItems[i].classList.remove("text-gray-800");
+                }
+                header.classList.remove("shadow");
+                navcontent.classList.remove("bg-white");
+                navcontent.classList.add("bg-gray-100");
+            }
+        });
+
+        /*Toggle dropdown list*/
+        /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+
+        var navMenuDiv = document.getElementById("nav-content");
+        var navMenu = document.getElementById("nav-toggle");
+        var closeMenuElement = document.getElementById("closeMenu");
+
+        // window.addEventListener('resize', function(event) {
+        //     closeMenu();
+        //     closeMenuElement.remove();
+        // }, true);
+
+        document.onclick = check;
+
+        function check(e) {
+            var target = (e && e.target) || (event && event.srcElement);
+
+            //Nav Menu
+            if (!checkParent(target, navMenuDiv)) {
+                // click NOT on the menu
+                if (checkParent(target, navMenu)) {
+                    // click on the link
+                    if (navMenuDiv.classList.contains("hidden")) {
+                        navMenuDiv.classList.remove("hidden", "menuClosed");
+                        navMenuDiv.classList.add("menuOpened");
+                        if (closeMenuElement == null || closeMenuElement == 'undefined') {
+                            navMenuDiv.innerHTML += "<span class='closeMenu' id='closeMenu'>"
+                                +"<img src='assets/close_menu_icon.svg' alt='close menu' onclick='closeMenu()' /></span>";
+                        }
+                    } else {
+                        navMenuDiv.classList.remove("menuOpened");
+                        navMenuDiv.classList.add("hidden", "menuClosed");
+                        if (closeMenuElement != null) {
+                            closeMenuElement.remove();
+                        }
+                    }
+                } else {
+                    // click both outside link and outside menu, hide menu
+                    navMenuDiv.classList.remove("menuOpened");
+                    navMenuDiv.classList.add("hidden", "menuClosed");
+                }
+            }
+        }
+        function checkParent(t, elm) {
+            while (t.parentNode) {
+                if (t == elm) {
+                    return true;
+                }
+                t = t.parentNode;
+            }
+            return false;
+        }
+
+        function closeMenu() {
+            navMenuDiv.classList.remove("menuOpened");
+            navMenuDiv.classList.add("hidden", "menuClosed");
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        var divisor = document.getElementById("divisor");
+        var comparisonWidth = document.getElementById("comparison").clientWidth;
+
+        function moveDivisor(e) {
+            divisor.style.width = (e.offsetX * 100 / comparisonWidth) + "%";
+        }
+    </script>
+  </body>
+</html>
